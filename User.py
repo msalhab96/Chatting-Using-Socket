@@ -53,6 +53,5 @@ class User:
                 break
 
 if __name__ == '__main__':
-    host_name = socket.gethostbyname(socket.gethostname())
-    with User(Config.PORT, Config.HOST_NAME) as server:
-        server.client_handler()
+    with User(Config.PORT, Config.HOST_NAME) as user:
+        user.client_handler()
