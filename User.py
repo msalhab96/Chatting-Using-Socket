@@ -32,11 +32,10 @@ class User:
         self.socket.close()
 
     def client_handler(self):
-        conn = self.socket
-        t = threading.Thread(target=self.send_msg, args=(conn,))
+        t = threading.Thread(target=self.send_msg, args=(self.socket,))
         t.start()
         while not self.is_closed:
-            msg = conn.recv(self.msg_length)
+            msg = self.socket.recv(self.msg_length)
             msg = msg.decode(self.encoding)
             if msg:
                 print(msg)
@@ -46,8 +45,7 @@ class User:
     def send_msg(self, conn):
         last_msg = ''
         while last_msg != self.disconnect_msg:
-            inp = input()
-            last_msg = inp
+            last_msg = input()
             conn.send(last_msg.encode(self.encoding))
             if self.is_closed:
                 break

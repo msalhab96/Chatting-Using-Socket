@@ -41,17 +41,19 @@ class Peer2Peer:
             t2.start()
 
     def client_handler(self, conn, addr):
-        print(addr)
         is_closed = False
         while not is_closed:
             msg = conn.recv(self.msg_length)
             msg = msg.decode(self.encoding)
+            if msg:
+                print(msg)
+                if msg == self.disconnect_msg:
+                    is_closed = not is_closed
         
     def send_msg(self, conn, addr):
         last_msg = ''
         while last_msg != self.disconnect_msg:
-            inp = input()
-            last_msg = inp
+            last_msg = input()
             conn.sendto(last_msg.encode(self.encoding), addr)
         
 if __name__ == '__main__':
