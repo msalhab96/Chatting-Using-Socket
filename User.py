@@ -27,7 +27,7 @@ class User:
         self.socket.connect(self.address)
         return self
 
-    def __exit__(self):
+    def __exit__(self, *args):
         self.socket.close()
 
     def client_handler(self):
