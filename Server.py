@@ -55,6 +55,5 @@ class Peer2Peer:
             conn.sendto(last_msg.encode(self.encoding), addr)
         
 if __name__ == '__main__':
-    host_name = socket.gethostbyname(socket.gethostname())
     with Peer2Peer(Config.PORT, Config.HOST_NAME) as server:
         server.accept_clients()
